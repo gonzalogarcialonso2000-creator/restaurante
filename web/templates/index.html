@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestor</title>
+</head>
+<body>
+
+<h1>Nueva tarea</h1>
+
+<form method="POST">
+    Nombre: <input name="nombre"><br>
+    Tarea: <input name="tarea"><br>
+    <button type="submit">Guardar</button>
+</form>
+
+<h2>Tareas guardadas</h2>
+
+<ul>
+{% for dato in datos %}
+    <li>{{ dato[1] }} - {{ dato[2] }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
+
