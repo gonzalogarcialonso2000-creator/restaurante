@@ -396,9 +396,28 @@ def uploads(filename):
 # ============================
 #   RUN SERVER
 # ============================
+@app.route("/health", methods=["GET"])
+def health():
+    return {"status": "ok"}, 200
+
+
+@app.route("/test-db", methods=["GET"])
+def test_db():
+    try:
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT NOW();")
+        result = cur.fetchone()
+        cur.close()
+        conn.close()
+        return {"database_connection": "successful", "timestamp": result[0]}, 200
+    except Exception as e:
+        return {"database_connection": "failed", "error": str(e)}, 500
+
+
 if __name__ == "__main__":
-    print(">>> Servidor Flask iniciado en http://127.0.0.1:5000")
     app.run(host="0.0.0.0", port=8000)
+
 CATEGORIAS_POR_PAGINA = [
     "bebidas",
     "entrantes",
